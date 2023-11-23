@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Actividad 4</title>
+	
+	<style>
+	button {
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h1 {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+  }
+  
+  #arriba {
+    top: 25%;
+  }
+  
+  #abajo {
+    top: 75%;
+  }
+
+  #nombres {
+    top: 9%;
+  }
+	</style>
+</head>
+<body>
+    <h1>COMPONENTES WEB</h1>
+    <h1 id="nombres">Integrantes: Arrieta Camilo, Bustamante Cristian, Lema Allison</h1>
+    <boton-componente></boton-componente>
+    <mensaje-componente></mensaje-componente>   
+    <script >
+	class BotonComponente extends HTMLElement {
+    connectedCallback() {
+      this.innerHTML = `<button>Click me</button>`;
+      this.querySelector('button').addEventListener('click', () => {
+        const button = this.querySelector('button');
+        const color = button.style.backgroundColor === 'red' ? 'green' : 'red';
+        button.style.backgroundColor = color;
+        const customEvent = new CustomEvent('cambiar-color', { detail: { color }, bubbles: true });
+        this.dispatchEvent(customEvent);
+      });
+    }
+  }
+  customElements.define('boton-componente', BotonComponente);
+  
+  class MensajeComponente extends HTMLElement {
+    connectedCallback() {
+      this.innerHTML = `<h1 id="arriba"></h1>
+      <h1 id="abajo"></h1>`;
+      window.addEventListener('cambiar-color', (event) => {
+        const t1 = this.querySelector('#arriba');
+        const t2 = this.querySelector('#abajo');
+        if (event.detail.color === 'green') {
+          t1.textContent = 'Verde';
+          t2.textContent = '';
+        } else {
+          t1.textContent = '';
+          t2.textContent = 'Rojo';
+        }
+      });
+    }
+  }
+  customElements.define('mensaje-componente', MensajeComponente);
+	
+	</script>
+    
+</body>
+</html>

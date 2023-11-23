@@ -1,0 +1,25 @@
+button {
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  h1 {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+  }
+  
+  #arriba {
+    top: 25%;
+  }
+  
+  #abajo {
+    top: 75%;
+  }
+
+  #nombres {
+    top: 9%;
+  }
